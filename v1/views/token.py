@@ -14,7 +14,7 @@ def token_claim(request: Request):
     if "username" not in request.POST or "password" not in request.POST:
         return Response(
             {"detail": "You must provide both username and password fields."},
-            status=status.HTTP_401_UNAUTHORIZED,
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
     logger.debug("Requesting DEBİS login...")

@@ -38,3 +38,14 @@ def test_data_login_fail(
     response = client.post(reverse_lazy("token_claim"), data=user_data)
     data = json.loads(response.content.decode("utf-8"))
     assert "detail" in data
+
+
+def test_status_invalid_post(client: test.Client):
+    response = client.post(reverse_lazy("token_claim"))
+    assert response.status_code == 400
+
+
+def test_data_invalid_post(client: test.Client):
+    response = client.post(reverse_lazy("token_claim"))
+    data = json.loads(response.content.decode("utf-8"))
+    assert "detail" in data

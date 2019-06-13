@@ -6,9 +6,5 @@ from v1.views.token import token_claim
 urlpatterns = [
     path("auth/claim/", token_claim, name="token_claim"),
     path("curriculum/terms/", curriculum_terms, name="curriculum_terms"),
-    path(
-        "curriculum/weeks/<int:term_id>/",
-        curriculum_weeks,
-        name="curriculum_weeks",
-    ),
+    path("curriculum/weeks/", curriculum_weeks, name="curriculum_weeks"),
 ]

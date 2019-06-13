@@ -14,9 +14,14 @@ def test_status(
     curriculum_request_mock,
 ):
     response = api_client.get(
-        reverse_lazy("curriculum_weeks", kwargs={"term_id": "0"})
+        reverse_lazy("curriculum_weeks"), data={"termId": "0"}
     )
     assert response.status_code == 200
+
+
+def test_status_no_term_id(api_client: test.APIClient):
+    response = api_client.get(reverse_lazy("curriculum_weeks"))
+    assert response.status_code == 400
 
 
 def test_json(
@@ -26,7 +31,7 @@ def test_json(
     curriculum_request_mock,
 ):
     response = api_client.get(
-        reverse_lazy("curriculum_weeks", kwargs={"term_id": "0"})
+        reverse_lazy("curriculum_weeks"), data={"termId": "0"}
     )
     obj = response.json()[0]
     assert obj["id"] == "18/02/2019-23/02/2019"

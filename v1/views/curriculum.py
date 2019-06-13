@@ -2,7 +2,7 @@ import typing
 
 import requests
 from bs4 import BeautifulSoup
-from rest_framework import decorators, request, response, views
+from rest_framework import decorators, request, response, status, views
 
 from debisapi.utils import get_payload
 from v1 import authentication
@@ -51,7 +51,7 @@ def curriculum_terms(request):
         authentication.CredentialsAuthentication,
     ]
 )
-def curriculum_weeks(request, term_id: int):
+def curriculum_weeks(request):
     def parse(soup_response) -> typing.List[dict]:
         soup = BeautifulSoup(soup_response.content, "lxml")
 
@@ -67,6 +67,14 @@ def curriculum_weeks(request, term_id: int):
             data.append(obj)
 
         return data
+
+    term_id = request.GET.get("termId", None)
+
+    if term_id is None:
+        return response.Response(
+            {"detail": "termId parameter must be provided."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     payload = get_payload(request)
     payload.pop("exp", None)

@@ -1,3 +1,4 @@
+import re
 import typing
 
 import requests
@@ -10,6 +11,109 @@ from v1 import authentication
 CURRICULUM_URL = (
     "http://debis.deu.edu.tr/OgrenciIsleri/Ogrenci/DersProgrami/index.php"
 )
+
+
+@decorators.api_view(["GET"])
+@decorators.authentication_classes(
+    [
+        authentication.JWTAuthentication,
+        authentication.CredentialsAuthentication,
+    ]
+)
+def curriculum(request):
+    def parse_session(elm) -> dict:
+        """Parses "from" and "to" hours."""
+        vals = elm.text.strip().split(" ")  # "17:00 17:45"
+        return {
+            "fromHour": vals[0] if len(vals) > 0 else None,
+            "toHour": vals[1] if len(vals) > 1 else None,
+        }
+
+    def parse_td(elm, day: int, session: dict) -> dict:
+        obj = {
+            "day": day,
+            "department": None,
+            "code": None,
+            "name": None,
+            "branch": None,
+            "is_theoric": False,
+            "lecturer": None,
+            "location": None,
+        }
+        obj.update(session)
+
+        text = elm.get_text("\n").strip()  # type: str
+        if not text:  # empty
+            return None
+        lines = text.splitlines()
+
+        obj["department"] = lines[0]
+
+        code = re.findall("[A-ZÇĞİÖŞÜ]{3} [0-9]{4}", text)
+        obj["code"] = code[0] if len(code) else None
+
+        # ref: https://regex101.com/r/sC54Yv/1
+        name = re.findall("[A-ZÇĞİÖŞÜ]{3} [0-9]{4} ?- ?(.+)\n", text)
+        obj["name"] = name[0] if len(name) else None
+
+        branch = re.findall("(.+) Şubesi", text)
+        obj["branch"] = branch[0] if len(branch) else None
+
+        obj["is_theoric"] = True if "Teorik" in text else False
+        obj["lecturer"] = lines[-3]
+
+        location = re.findall("Derslik:\n(.+)", text)
+        obj["location"] = location[0].strip() if len(location) else None
+
+        return obj
+
+    def parse_tr(elm) -> typing.List[dict]:
+        td_elms = elm.find_all("td")
+
+        session_elm = td_elms[0]
+        session = parse_session(session_elm)
+
+        objs = []
+        for index, td_elm in enumerate(td_elms[1:]):
+            obj = parse_td(td_elm, index + 1, session)
+            if obj is not None:
+                objs.append(obj)
+
+        return objs
+
+    def parse(soup_response):
+        soup = BeautifulSoup(soup_response.content, "lxml")
+
+        tbody_elm = soup.find("table", attrs={"bordercolor": "#FF9900"}).find(
+            "tbody"
+        )
+        tr_elms = tbody_elm.find_all("tr")
+
+        data = []
+        for tr_elm in tr_elms[1:]:  # without table header
+            objs = data.extend(parse_tr(tr_elm))
+
+        return data
+
+    term_id, week_id = (
+        request.GET.get("termId", None),
+        request.GET.get("weekId", None),
+    )
+
+    if None in (term_id, week_id):
+        return response.Response(
+            {"detail": "termId and weekId must be provided as parameter."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    payload = get_payload(request)
+    payload.pop("exp", None)
+    payload["emailHost"] = "ogr.deu.edu.tr"
+    payload["ogretim_donemi_id"] = request.GET["termId"]
+    payload["hafta"] = request.GET["weekId"]
+    soup_response = requests.post(CURRICULUM_URL, data=payload)
+
+    return response.Response(parse(soup_response))
 
 
 @decorators.api_view(["GET"])

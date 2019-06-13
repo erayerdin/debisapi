@@ -30,7 +30,7 @@ def curriculum_terms(request):
 
         for elm in option_elms:
             obj = {"id": None, "name": None}
-            obj["id"] = int(elm["value"])
+            obj["id"] = elm["value"]
             obj["name"] = elm.text.strip()
             data.append(obj)
 
@@ -38,6 +38,40 @@ def curriculum_terms(request):
 
     payload = get_payload(request)
     payload.pop("exp", None)
+    payload["emailHost"] = "ogr.deu.edu.tr"
+    soup_response = requests.post(CURRICULUM_URL, data=payload)
+
+    return response.Response(parse(soup_response))
+
+
+@decorators.api_view(["GET"])
+@decorators.authentication_classes(
+    [
+        authentication.JWTAuthentication,
+        authentication.CredentialsAuthentication,
+    ]
+)
+def curriculum_weeks(request, term_id: int):
+    def parse(soup_response) -> typing.List[dict]:
+        soup = BeautifulSoup(soup_response.content, "lxml")
+
+        select_elm = soup.find("select", attrs={"id": "hafta"})
+        option_elms = select_elm.find_all("option")
+
+        data = []
+
+        for elm in option_elms:
+            obj = {"id": None, "name": None}
+            obj["id"] = elm["value"]
+            obj["name"] = elm.text.strip()
+            data.append(obj)
+
+        return data
+
+    payload = get_payload(request)
+    payload.pop("exp", None)
+    payload["emailHost"] = "ogr.deu.edu.tr"
+    payload["ogretim_donemi_id"] = str(term_id)
     soup_response = requests.post(CURRICULUM_URL, data=payload)
 
     return response.Response(parse(soup_response))

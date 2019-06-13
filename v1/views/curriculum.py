@@ -84,10 +84,10 @@ def curriculum(request):
     def parse(soup_response):
         soup = BeautifulSoup(soup_response.content, "lxml")
 
-        tbody_elm = soup.find("table", attrs={"bordercolor": "#FF9900"}).find(
-            "tbody"
-        )
-        tr_elms = tbody_elm.find_all("tr")
+        table_elm = soup.find("table", attrs={"bordercolor": "#FF9900"})
+        tbody_elm = table_elm.find("tbody")
+        inspection_elm = table_elm if tbody_elm is None else tbody_elm
+        tr_elms = inspection_elm.find_all("tr")
 
         data = []
         for tr_elm in tr_elms[1:]:  # without table header

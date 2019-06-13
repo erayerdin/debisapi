@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 def get_token(request):
-    author_header = request.META.get("Authorization", None)
+    author_header = request.META.get("HTTP_AUTHORIZATION", None)
 
     if author_header is None:
         return None

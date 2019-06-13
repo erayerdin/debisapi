@@ -20,10 +20,11 @@ def token_claim(request: Request):
     logger.debug("Requesting DEBİS login...")
     scrap_response = requests.post(
         "http://debis.deu.edu.tr/debis.php",
-        data=dict(
-            username=request.POST["username"],
-            password=request.POST["password"],
-        ),
+        data={
+            "username": request.POST["username"],
+            "password": request.POST["password"],
+            "emailHost": "ogr.deu.edu.tr",
+        },
     )
 
     if "hatal" in scrap_response.text:

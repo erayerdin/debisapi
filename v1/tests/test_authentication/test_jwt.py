@@ -24,7 +24,7 @@ def mocked_request_factory():
         token = jwt.encode(user_data, settings.SECRET_KEY)
         mocked_request = MockedRequest()
         mocked_request.META = {
-            "Authorization": "Token " + token.decode("utf-8")
+            "HTTP_AUTHORIZATION": "Token " + token.decode("utf-8")
         }
         return mocked_request
 

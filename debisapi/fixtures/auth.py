@@ -15,5 +15,5 @@ def token() -> str:
 @pytest.fixture
 def api_client(token):
     client = test.APIClient()
-    client.credentials(**{"Authorization": "Token " + token})
+    client.credentials(**{"HTTP_AUTHORIZATION": "Token " + token})
     return client

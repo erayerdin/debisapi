@@ -8,7 +8,7 @@ from debisapi.utils import get_payload
 
 class JWTAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
-        author_header = request.META.get("Authorization", None)
+        author_header = request.META.get("HTTP_AUTHORIZATION", None)
 
         if author_header is None:
             raise exceptions.AuthenticationFailed("Token must be provided.")

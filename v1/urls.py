@@ -1,10 +1,13 @@
 from django.urls import path
 
+from v1.views import info
 from v1.views.curriculum import curriculum, curriculum_terms, curriculum_weeks
 from v1.views.token import token_claim
 
 urlpatterns = [
     path("auth/claim/", token_claim, name="token_claim"),
+    # info
+    path("info/", info, name="info"),
     # curriculum views
     path("curriculum/", curriculum, name="curriculum"),
     path("curriculum/terms/", curriculum_terms, name="curriculum_terms"),

@@ -39,9 +39,12 @@ def info(request):
         soup = BeautifulSoup(soup_response.content, "lxml")
 
         form_elm = soup.find("form", attrs={"name": "form_donem"})
-        tbody_elm = form_elm.find("tbody")
+        inspection_elm = form_elm.find("tbody")
 
-        tr_elms = tbody_elm.find_all("tr")
+        if inspection_elm is None:
+            inspection_elm = form_elm.find("table")
+
+        tr_elms = inspection_elm.find_all("tr")
 
         name_surname_elm = tr_elms[0]
         student_id_elm = tr_elms[1]

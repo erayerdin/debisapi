@@ -2,6 +2,7 @@
 <html>
 <head></head>
 <body>
+<!-- student info -->
 <table style="--darkreader-inline-bgcolor:#181a1b;" data-darkreader-inline-bgcolor="" width="85%" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
   			<tbody>
   				<tr>
@@ -259,5 +260,137 @@
   				</tr>
   			</tbody>
 			</table>
+
+<!-- term select -->
+<select name="ogretim_donemi_id" id="ogretim_donemi_id" onchange="form_donem_submit();" style="width: 300; height: 23" size="1">
+	        <option value="">Dönem Seçiniz</option>
+	        <option value="254" selected="">2018-2019 Bahar</option>
+	        <option value="253">2018-2019 Güz</option>
+	        <option value="244">2017-2018 Bahar</option>
+	        <option value="243">2017-2018 Güz</option>
+		 </select>
+
+
+<!-- class select -->
+<select name="ders" id="ders" onchange="form_ders_submit();">
+    <option value="">Ders Seçiniz</option><option value="A__1_8952_151_2_" selected="">YÖN 4218 YEREL KAMU HİZMETLERİ</option><option value="A__1_8952_119_2_">YÖN 4204 ANAYASA HUKUKU</option><option value="A__1_8952_120_2_">YÖN 4206 YEREL YÖNETİMLER MALİYESİ</option><option value="A__1_8952_113_2_">YÖN 4202 KAMU PERSONEL YÖNETİMİ</option><option value="A__1_8952_149_2_">YÖN 4214 KAMU YÖNETİMİ VE KALKINMA</option><option value="A__1_8952_123_2_">YÖN 4212 MESLEKİ SEMİNER 2</option><option value="A__1_8952_121_2_">YÖN 4208 İMAR MEVZUATI VE UYGULAMALARI</option></select>
+
+<!-- result table -->
+<table style="margin-top:10px" width="100%" cellspacing="0" cellpadding="0" border="1" bgcolor="99CCFF">
+	<tbody><tr>
+		<td colspan="2" align="center"><b>YÖN 4218 - YEREL KAMU HİZMETLERİ</b></td>
+	</tr>
+	<tr>
+		<td colspan="2" bgcolor="white"><font size="3" color="red"></font></td>
+	</tr>
+	<tr>
+		<td width="50%" valign="top">
+		<table width="100%" border="0">
+		<tbody><tr>
+			<td><b>FAKULTE ADI</b></td>
+			<td><b>:</b></td>
+			<td>İzmir Meslek Yüksekokulu</td>
+		</tr>
+		<tr>
+			<td><b>BOLUM ADI</b></td>
+			<td><b>:</b></td>
+			<td>Yerel Yönetimler (İÖ)</td>
+		</tr>
+		<tr>
+			<td><b>ŞUBE ADI</b></td>
+			<td><b>:</b></td>
+			<td>A Şubesi</td>
+		</tr>
+		<tr>
+			<td><b>TOPLAM KREDİ</b></td>
+			<td><b>:</b></td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td><b>DERS TÜRÜ</b></td>
+			<td><b>:</b></td>
+			<td>Zorunlu</td>
+		</tr>
+		<tr>
+			<td><b>TEKRAR SAYISI</b></td>
+			<td><b>:</b></td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td><b>ÖĞRETİM GÖREVLİSİ</b></td>
+			<td><b>:</b></td>
+			<td>DR. ELİF YÜCEBAŞ <a href="mailto:elif.yucebas@deu.edu.tr">(elif.yucebas@deu.edu.tr)</a></td>
+		</tr>
+		<tr>
+			<td valign="top"><b>DEVAM DURUMU</b></td>
+			<td valign="top"><b>:</b></td>
+			<td valign="top">DEVAM MECBURİ/</td><td>
+		</td></tr>
+	</tbody></table>
+	</td>
+	<td width="50%" valign="top">
+		<table width="100%" border="0">
+		<tbody><tr>
+			<td align="left"><b>DEĞERLENDİRME ADI</b></td>
+			<td align="center"><b>İLAN TARİHİ</b></td>
+			<td align="center"><b>SINIF ORT.<sup>*</sup></b></td>
+			<td align="center"><b>ORT 2<sup>**</sup></b></td>
+			<td align="center"><b>SİZİN NOTUNUZ</b></td>
+		</tr>
+			<tr>
+				<td align="left">Vize</td>
+				<td align="center">08/05/2019</td>
+				<td align="center">80</td>
+				<td align="center"></td>
+				<td align="center">70</td>
+			</tr>
+			
+			<tr>
+				<td align="left">Rapor/Ödev</td>
+				<td align="center">İLAN EDİLMEMİŞ</td>
+				<td align="center"></td>
+				<td align="center"></td>
+				<td align="center"></td>
+			</tr>
+			
+			<tr>
+				<td align="left">Final</td>
+				<td align="center">İLAN EDİLMEMİŞ</td>
+				<td align="center"></td>
+				<td align="center"></td>
+				<td align="center"></td>
+			</tr>
+			
+			<tr>
+				<td align="left">Yarıyıl Sonu Başarı Notu</td>
+				<td align="center">İLAN EDİLMEMİŞ</td>
+				<td align="center"></td>
+				<td align="center"></td>
+				<td align="center"></td>
+			</tr>
+			
+			<tr>
+				<td align="left">Bütünleme Notu</td>
+				<td align="center">İLAN EDİLMEMİŞ</td>
+				<td align="center"></td>
+				<td align="center"></td>
+				<td align="center"></td>
+			</tr>
+			
+			<tr>
+				<td align="left">Bütünleme Sonu Başarı Notu</td>
+				<td align="center">İLAN EDİLMEMİŞ</td>
+				<td align="center"></td>
+				<td align="center"></td>
+				<td align="center"></td>
+			</tr>
+			
+		</tbody></table>
+		</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:center"><b>ALIYOR</b></td>
+		</tr>
+		</tbody></table>
 </body>
 </html>

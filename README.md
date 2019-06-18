@@ -1,5 +1,8 @@
 # DEBİS API
 
+[![CircleCI](https://circleci.com/gh/erayerdin/debisapi/tree/master.svg?style=svg)](https://circleci.com/gh/erayerdin/debisapi/tree/master)
+![Style](https://img.shields.io/badge/style-black-000000.svg)
+
 Dokuz Eylül Üniversitesi, DEBİS sistemi için
 oluşturulmuş bir API'dır.
 

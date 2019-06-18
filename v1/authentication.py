@@ -1,7 +1,7 @@
 import jwt
 import requests
 from django.conf import settings
-from rest_framework import authentication, exceptions
+from rest_framework import authentication, decorators, exceptions
 
 from debisapi.utils import get_payload
 
@@ -49,3 +49,8 @@ class CredentialsAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed("User is invalid.")
 
         return (None, None)
+
+
+AUTHENTICATION_DECORATOR = decorators.authentication_classes(
+    [JWTAuthentication, CredentialsAuthentication]
+)

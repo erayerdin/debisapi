@@ -8,12 +8,7 @@ from v1.views.results import RESULTS_URL as INFO_URL
 
 
 @decorators.api_view(["GET"])
-@decorators.authentication_classes(
-    [
-        authentication.JWTAuthentication,
-        authentication.CredentialsAuthentication,
-    ]
-)
+@authentication.AUTHENTICATION_DECORATOR
 def info(request):
     def parse_tr(elm):
         return elm.find_all("td")[1]

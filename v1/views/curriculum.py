@@ -14,12 +14,7 @@ CURRICULUM_URL = (
 
 
 @decorators.api_view(["GET"])
-@decorators.authentication_classes(
-    [
-        authentication.JWTAuthentication,
-        authentication.CredentialsAuthentication,
-    ]
-)
+@authentication.AUTHENTICATION_DECORATOR
 def curriculum(request):
     def parse_session(elm) -> dict:
         """Parses "from" and "to" hours."""
@@ -117,12 +112,7 @@ def curriculum(request):
 
 
 @decorators.api_view(["GET"])
-@decorators.authentication_classes(
-    [
-        authentication.JWTAuthentication,
-        authentication.CredentialsAuthentication,
-    ]
-)
+@authentication.AUTHENTICATION_DECORATOR
 def curriculum_terms(request):
     def parse(soup_response) -> typing.List[dict]:
         soup = BeautifulSoup(soup_response.content, "lxml")
@@ -149,12 +139,7 @@ def curriculum_terms(request):
 
 
 @decorators.api_view(["GET"])
-@decorators.authentication_classes(
-    [
-        authentication.JWTAuthentication,
-        authentication.CredentialsAuthentication,
-    ]
-)
+@authentication.AUTHENTICATION_DECORATOR
 def curriculum_weeks(request):
     def parse(soup_response) -> typing.List[dict]:
         soup = BeautifulSoup(soup_response.content, "lxml")

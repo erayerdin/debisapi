@@ -13,12 +13,7 @@ RESULTS_URL = (
 
 
 @decorators.api_view(["GET"])
-@decorators.authentication_classes(
-    [
-        authentication.JWTAuthentication,
-        authentication.CredentialsAuthentication,
-    ]
-)
+@authentication.AUTHENTICATION_DECORATOR
 def results(request):
     def parse_table_section(table_elm, is_left=True):
         sections = table_elm.find_all("tr")[2]
@@ -149,12 +144,7 @@ def results(request):
 
 
 @decorators.api_view(["GET"])
-@decorators.authentication_classes(
-    [
-        authentication.JWTAuthentication,
-        authentication.CredentialsAuthentication,
-    ]
-)
+@authentication.AUTHENTICATION_DECORATOR
 def results_terms(request):
     def parse(soup_response) -> typing.List[dict]:
         soup = BeautifulSoup(soup_response.content, "lxml")
@@ -181,12 +171,7 @@ def results_terms(request):
 
 
 @decorators.api_view(["GET"])
-@decorators.authentication_classes(
-    [
-        authentication.JWTAuthentication,
-        authentication.CredentialsAuthentication,
-    ]
-)
+@authentication.AUTHENTICATION_DECORATOR
 def results_klasses(request):
     def parse(soup_response) -> typing.List[dict]:
         soup = BeautifulSoup(soup_response.content, "lxml")

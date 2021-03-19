@@ -1,5 +1,5 @@
 Django==2.2.2
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 requests==2.22.0
 PyJWT==1.7.1
 beautifulsoup4==4.7.1
